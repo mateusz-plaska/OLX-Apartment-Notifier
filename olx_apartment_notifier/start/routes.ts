@@ -7,6 +7,11 @@
 |
 */
 
+import AuthLoginController from '#controllers/auth_login_controller'
 import router from '@adonisjs/core/services/router'
 
-router.on('/').render('pages/home')
+
+router.get('', [AuthLoginController, 'showInitialView'])
+
+router.get('/login', [AuthLoginController, 'showLoginView'])
+router.post('/login', [AuthLoginController, 'login'])

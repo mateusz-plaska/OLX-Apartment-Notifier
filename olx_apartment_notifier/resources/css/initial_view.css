@@ -1,0 +1,369 @@
+/* body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #4c6ef5, #79c0ff);
+    color: #fff;
+}
+
+.container {
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+    font-size: 36px;
+    margin-bottom: 10px;
+    color: #ffffff;
+}
+
+.description {
+    font-size: 18px;
+    margin-bottom: 30px;
+    color: #d1e1ff;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.btn {
+    display: inline-block;
+    margin: 10px;
+    padding: 15px 40px;
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #fff;
+    background-color: #0056d2;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.btn:hover {
+    background-color: #0040a8;
+    transform: translateY(-5px);
+}
+
+.btn-login {
+    background-color: #007bff;
+}
+
+.btn-register {
+    background-color: #00aaff;
+}
+
+.btn-login:hover {
+    background-color: #0056b3;
+}
+
+.btn-register:hover {
+    background-color: #0088cc;
+} */
+
+/* 
+ZIELONY
+
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Arial', sans-serif;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #2f6b2f, #a1d6a1);
+        color: #fff;
+    }
+
+    .container {
+        text-align: center;
+        background-color: rgba(255, 255, 255, 0.1);
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    h1 {
+        font-size: 36px;
+        margin-bottom: 10px;
+        color: #ffffff;
+    }
+
+    .description {
+        font-size: 18px;
+        margin-bottom: 30px;
+        color: #d9f2d9;
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .btn {
+        display: inline-block;
+        margin: 10px;
+        padding: 15px 40px;
+        font-size: 18px;
+        font-weight: bold;
+        text-transform: uppercase;
+        color: #fff;
+        background-color: #3e8e41;
+        border: none;
+        border-radius: 30px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn:hover {
+        background-color: #356d36;
+        transform: translateY(-5px);
+    }
+
+    .btn-login {
+        background-color: #4c9a51;
+    }
+
+    .btn-register {
+        background-color: #5ebd63;
+    }
+
+    .btn-login:hover {
+        background-color: #3b7b42;
+    }
+
+    .btn-register:hover {
+        background-color: #4aa653;
+    } */
+
+/* 
+    SZARY + ŻÓŁTY
+
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Arial', sans-serif;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #2c3e50, #bdc3c7);
+        color: #fff;
+    }
+
+    .container {
+        text-align: center;
+        background-color: rgba(255, 255, 255, 0.1);
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    h1 {
+        font-size: 36px;
+        margin-bottom: 10px;
+        color: #ffffff;
+    }
+
+    .description {
+        font-size: 18px;
+        margin-bottom: 30px;
+        color: #e0e0e0;
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .btn {
+        display: inline-block;
+        margin: 10px;
+        padding: 15px 40px;
+        font-size: 18px;
+        font-weight: bold;
+        text-transform: uppercase;
+        color: #fff;
+        background-color: #16a085;
+        border: none;
+        border-radius: 30px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn:hover {
+        background-color: #138c72;
+        transform: translateY(-5px);
+    }
+
+    .btn-login {
+        background-color: #f39c12;
+    }
+
+    .btn-register {
+        background-color: #f1c40f;
+    }
+
+    .btn-login:hover {
+        background-color: #e67e22;
+    }
+
+    .btn-register:hover {
+        background-color: #f39c12;
+    } */
+
+/* 
+    FIOLET
+
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Arial', sans-serif;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #6a0dad, #b785d9);
+        color: #fff;
+    }
+
+    .container {
+        text-align: center;
+        background-color: rgba(255, 255, 255, 0.1);
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    h1 {
+        font-size: 36px;
+        margin-bottom: 10px;
+        color: #ffffff;
+    }
+
+    .description {
+        font-size: 18px;
+        margin-bottom: 30px;
+        color: #eedaf2;
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .btn {
+        display: inline-block;
+        margin: 10px;
+        padding: 15px 40px;
+        font-size: 18px;
+        font-weight: bold;
+        text-transform: uppercase;
+        color: #fff;
+        background-color: #7b2bcb;
+        border: none;
+        border-radius: 30px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn:hover {
+        background-color: #6622a8;
+        transform: translateY(-5px);
+    }
+
+    .btn-login {
+        background-color: #8f3ed9;
+    }
+
+    .btn-register {
+        background-color: #a75feb;
+    }
+
+    .btn-login:hover {
+        background-color: #7532bb;
+    }
+
+    .btn-register:hover {
+        background-color: #8d4bd0;
+    } */
+
+
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Arial', sans-serif;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #d9732a, #f0a663);
+        color: #fff;
+    }
+
+    .container {
+        text-align: center;
+        background-color: rgba(255, 255, 255, 0.1);
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    h1 {
+        font-size: 36px;
+        margin-bottom: 10px;
+        color: #ffffff;
+    }
+
+    .description {
+        font-size: 18px;
+        margin-bottom: 30px;
+        color: #ffe6d5;
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .btn {
+        display: inline-block;
+        margin: 10px;
+        padding: 15px 40px;
+        font-size: 18px;
+        font-weight: bold;
+        text-transform: uppercase;
+        color: #fff;
+        background-color: #c46322;
+        border: none;
+        border-radius: 30px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn:hover {
+        background-color: #a7511c;
+        transform: translateY(-5px);
+    }
+
+    .btn-login {
+        background-color: #e6773e;
+    }
+
+    .btn-register {
+        background-color: #f08a4b;
+    }
+
+    .btn-login:hover {
+        background-color: #c05e31;
+    }
+
+    .btn-register:hover {
+        background-color: #d27a40;
+    }
