@@ -30,7 +30,7 @@ export default class AuthLoginController {
 
     async register({request, response}: HttpContext) {
         const inputData = await createUserValidator.validate(request.all())
-        //await User.create(inputData)
+        await User.create(inputData)
         return response.redirect('/')       // HOME PAGE
     }
 }
