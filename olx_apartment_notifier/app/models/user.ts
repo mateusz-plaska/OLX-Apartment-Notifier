@@ -22,9 +22,16 @@ export default class User extends compose(BaseModel, AuthFinder) {
   @column({ serializeAs: null })
   declare password: string
 
-  @column.dateTime({ autoCreate: true })
+  @column.dateTime({ 
+    autoCreate: true,
+    serialize: (value) => value.toFormat('yyyy-LL-dd HH:mm:ss') 
+  })
   declare createdAt: DateTime
 
-  @column.dateTime({ autoCreate: true, autoUpdate: true })
-  declare updatedAt: DateTime | null
+  @column.dateTime({ 
+    autoCreate: true, 
+    autoUpdate: true,
+    serialize: (value) => value.toFormat('yyyy-LL-dd HH:mm:ss') 
+  })
+  declare updatedAt: DateTime
 }
