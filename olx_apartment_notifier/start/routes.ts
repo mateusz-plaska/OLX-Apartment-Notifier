@@ -18,3 +18,6 @@ router.post('/login', [AuthLoginController, 'login'])
 
 router.get('/registration', [AuthLoginController, 'showRegistrationView'])
 router.post('/registration', [AuthLoginController, 'register'])
+
+router.get('/home', [AuthLoginController, 'showHomeView'])
+router.get('/home/profile', [AuthLoginController, 'showUserProfileView'])

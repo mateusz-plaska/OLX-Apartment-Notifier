@@ -17,7 +17,7 @@ export default class AuthLoginController {
         try {
             const user = await User.verifyCredentials(email, password)
             await auth.use().login(user)
-            return response.redirect('/')   // HOME PAGE
+            return response.redirect('/home')   // HOME PAGE
         } catch (error) {
             session.flash('error', 'Invalid email or password')
             return response.redirect().back()
@@ -31,6 +31,19 @@ export default class AuthLoginController {
     async register({request, response}: HttpContext) {
         const inputData = await createUserValidator.validate(request.all())
         await User.create(inputData)
-        return response.redirect('/')       // HOME PAGE
+        return response.redirect('/home')       // HOME PAGE
+    }
+
+
+    //////////////////////////
+
+
+    async showHomeView({view}: HttpContext) {
+        return view.render('home_view')
+    }
+
+    async showUserProfileView({auth, view}: HttpContext) {
+        const user = await auth.use().authenticate()
+        return view.render('user_profile_view', {user})
     }
 }

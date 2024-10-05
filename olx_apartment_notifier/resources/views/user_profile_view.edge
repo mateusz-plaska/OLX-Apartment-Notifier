@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil użytkownika</title>
+
+    @vite(['resources/css/user_profile_view.css'])
+</head>
+<body>
+    <div class="container">
+        <h1>Profil Użytkownika</h1>
+
+        <!-- Odnośnik powrotu do głównego widoku -->
+        <a href="/home">
+            <button class="back-btn">Powrót do głównej strony</button>
+        </a>
+
+        <!-- Dane użytkownika -->
+        <div class="user-info">
+            <p><strong>Imię i nazwisko:</strong> {{ user.fullName }}</p>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+        </div>
+
+        <!-- Formularz edycji danych -->
+        <div class="edit-form">
+            <h2>Edytuj dane</h2>
+            <form action="/user/update" method="POST">
+                <label for="fullName">Imię i nazwisko</label>
+                <input type="text" name="fullName" id="fullName" value="{{ user.fullName }}" required>
+
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email" value="{{ user.email }}" required>
+
+                <label for="password">Nowe hasło (opcjonalnie)</label>
+                <input type="password" name="password" id="password">
+
+                <input type="submit" value="Zapisz zmiany">
+            </form>
+        </div>
+
+        <!-- Przycisk usunięcia konta -->
+        <form action="/user/delete" method="POST">
+            <input type="hidden" name="_method" value="DELETE">
+            <button type="submit" class="delete-btn">Usuń konto</button>
+        </form>
+    </div>
+</body>
+</html>
