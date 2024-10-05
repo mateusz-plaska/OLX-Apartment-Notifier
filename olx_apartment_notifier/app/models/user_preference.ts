@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon'
-import { BaseModel, belongsTo, column, hasMany } from '@adonisjs/lucid/orm'
-import type { BelongsTo, HasMany } from '@adonisjs/lucid/types/relations'
+import { BaseModel, belongsTo, column, hasMany, manyToMany } from '@adonisjs/lucid/orm'
+import type { BelongsTo, HasMany, ManyToMany } from '@adonisjs/lucid/types/relations'
 import User from './user.js'
 import BuildingType from './building_type.js'
 import District from './district.js'
@@ -38,9 +38,6 @@ export default class UserPreference extends BaseModel {
 
   @column()
   declare furnished: boolean
-
-  @column()
-  declare buildingTypeId: number
 
   @column()
   declare petsAllowed: boolean
@@ -85,9 +82,6 @@ export default class UserPreference extends BaseModel {
   @belongsTo(() => User)
   declare user: BelongsTo<typeof User>
 
-  @belongsTo(() => BuildingType)
-  declare buildingType: BelongsTo<typeof BuildingType>
-
   @belongsTo(() => Region)
   declare region: BelongsTo<typeof Region>
 
@@ -99,4 +93,9 @@ export default class UserPreference extends BaseModel {
 
   @hasMany(() => NotificationStory)
   declare notificationStory: HasMany<typeof NotificationStory>
+
+  @manyToMany(() => BuildingType, {
+    pivotTable: 'building_type_user_preference',
+  })
+  declare buildingTypes: ManyToMany<typeof BuildingType>
 }

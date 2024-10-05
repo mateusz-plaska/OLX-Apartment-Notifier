@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, hasMany } from '@adonisjs/lucid/orm'
+import { BaseModel, column, hasMany, manyToMany } from '@adonisjs/lucid/orm'
 import UserPreference from './user_preference.js'
-import type { HasMany } from '@adonisjs/lucid/types/relations'
+import type { HasMany, ManyToMany } from '@adonisjs/lucid/types/relations'
 import Advertisment from './advertisment.js'
 
 export default class BuildingType extends BaseModel {
@@ -24,9 +24,11 @@ export default class BuildingType extends BaseModel {
   })
   declare updatedAt: DateTime
 
-  @hasMany(() => UserPreference)
-  declare userPreference: HasMany<typeof UserPreference>
-
   @hasMany(() => Advertisment)
   declare advertisment: HasMany<typeof Advertisment>
+
+  @manyToMany(() => UserPreference, {
+    pivotTable: 'building_type_user_preference'
+  })
+  declare buildingTypes: ManyToMany<typeof UserPreference>
 }

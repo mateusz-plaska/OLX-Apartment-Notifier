@@ -18,8 +18,6 @@ export default class extends BaseSchema {
       table.json('floor')
       table.boolean('furnished')
 
-      table.integer('building_type_id').unsigned().references('building_types.id').onDelete('SET NULL') 
-
       table.boolean('pets_allowed')
       table.boolean('lift')
       table.boolean('car_park')

@@ -11,9 +11,10 @@ import { DateTime } from 'luxon'
 
 export default class extends BaseSeeder {
   async run() {
-    await this.test1()
-    await this.test2()
-    await this.test3()
+    // await this.test1()
+    // await this.test2()
+    // await this.test3()
+    // await this.test4()
   }
 
   async test1() {
@@ -35,6 +36,21 @@ export default class extends BaseSeeder {
     await BuildingType.create({
       id: 1,
       name: 'dom'
+    })
+
+    await BuildingType.create({
+      id: 2,
+      name: 'blok'
+    })
+
+    await BuildingType.create({
+      id: 3,
+      name: 'kamienica'
+    })
+
+    await BuildingType.create({
+      id: 4,
+      name: 'apartamentowiec'
     })
 
     await Region.create({
@@ -70,7 +86,6 @@ export default class extends BaseSeeder {
       price: {min: 1000, max: 1891.1},
       floor: {values: [1,2,9,4]},
       furnished: true,
-      buildingTypeId: 1,
       petsAllowed: false,
       lift: true,
       type: 15,
@@ -100,5 +115,11 @@ export default class extends BaseSeeder {
       advertismentId: 1,
       sentDate: DateTime.now()
     })
+  }
+
+  async test4() {
+    const userPreference = await UserPreference.findOrFail(1)
+
+    await userPreference.related('buildingTypes').attach([3, 4, 2])
   }
 }
