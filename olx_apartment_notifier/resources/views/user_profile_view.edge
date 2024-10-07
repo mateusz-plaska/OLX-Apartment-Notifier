@@ -22,10 +22,18 @@
             <p><strong>Email:</strong> {{ user.email }}</p>
         </div>
 
+        <a href="/home/profile/logout" class="logout-btn">Wyloguj</a>
+
+        @each(error in flashMessages.get('errors')) 
+            <p class="error-message">{{ error }}</p>
+        @endeach
+
         <!-- Formularz edycji danych -->
         <div class="edit-form">
             <h2>Edytuj dane</h2>
-            <form action="/user/update" method="POST">
+            <form action="/home/profile" method="POST">
+                {{ csrfField() }}
+
                 <label for="fullName">Imię i nazwisko</label>
                 <input type="text" name="fullName" id="fullName" value="{{ user.fullName }}" required>
 
@@ -35,15 +43,18 @@
                 <label for="password">Nowe hasło (opcjonalnie)</label>
                 <input type="password" name="password" id="password">
 
-                <input type="submit" value="Zapisz zmiany">
+                <button type="submit" class="save-btn">Zapisz zmiany</button>
             </form>
         </div>
 
-        <!-- Przycisk usunięcia konta -->
-        <form action="/user/delete" method="POST">
-            <input type="hidden" name="_method" value="DELETE">
-            <button type="submit" class="delete-btn">Usuń konto</button>
-        </form>
+        <a href="/home/profile/delete" onclick="return confirmDelete();">
+            <button class="delete-btn">Usuń konto</button></a>
     </div>
+
+    <script>
+        function confirmDelete() {
+            return confirm('Czy na pewno chcesz usunąć swoje konto?');
+        }
+    </script>
 </body>
 </html>

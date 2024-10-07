@@ -50,6 +50,23 @@ h2 {
     color: #bdc3c7;
 }
 
+.logout-btn {
+    display: inline-block; /* Umożliwia użycie padding i margin */
+    background-color: #ff4757; /* Czerwony kolor tła */
+    color: white; /* Kolor tekstu */
+    padding: 10px 20px; /* Padding wewnętrzny */
+    border: none; /* Bez obramowania */
+    border-radius: 5px; /* Zaokrąglone rogi */
+    text-decoration: none; /* Usuń podkreślenie z linku */
+    font-size: 16px; /* Rozmiar czcionki */
+    cursor: pointer; /* Zmien cursor na wskazujący */
+    transition: background-color 0.3s ease; /* Animacja zmiany koloru tła */
+}
+
+.logout-btn:hover {
+    background-color: #ff6b81; /* Jaśniejszy odcień przy najechaniu */
+}
+
 /* Formularz edycji danych */
 .edit-form {
     margin-top: 20px;
@@ -74,7 +91,7 @@ h2 {
 }
 
 /* Stylizacja przycisków */
-.edit-form input[type="submit"], .delete-btn, .back-btn {
+.edit-form .save-btn, .delete-btn, .back-btn {
     width: 100%;
     padding: 10px;
     font-size: 18px;
@@ -87,7 +104,7 @@ h2 {
 }
 
 /* Efekt hover dla przycisku zapisz zmiany */
-.edit-form input[type="submit"]:hover, .back-btn:hover {
+.edit-form .save-btn:hover, .back-btn:hover {
     background-color: #138c72;
 }
 
@@ -111,4 +128,9 @@ h2 {
 
 .back-btn:hover {
     background-color: #2980b9;
+}
+
+.error-message {
+    color: red;
+    margin-bottom: 20px;
 }
