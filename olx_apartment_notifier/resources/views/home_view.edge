@@ -8,98 +8,45 @@
     @vite(['resources/css/home_view.css'])
 </head>
 <body>
-    <div class="container">
-        <h1>Preferencje Użytkownika</h1>
-        
-        <!-- Przycisk do dodania nowej preferencji -->
-        <div class="add-preference">
-            <button class="btn" id="addPreferenceBtn">Dodaj nową preferencję</button>
-        </div>
-
-        <!-- Tabela preferencji -->
-        <table>
-            <thead>
-                <tr>
-                    <th>Nazwa preferencji</th>
-                    <th>Opis</th>
-                    <th>Szczegóły</th>
-                </tr>
-            </thead>
-            <tbody id="preferenceTableBody">
-                <!-- Wiersze będą dodawane dynamicznie tutaj -->
-            </tbody>
-        </table>
-
-        <!-- Paginacja -->
-        <div class="pagination" id="pagination">
-            <!-- Przycisk paginacji będą tutaj -->
-        </div>
-
-        <!-- Link do profilu użytkownika -->
-        <div class="profile-link">
-            <a href="/home/profile">Mój Profil</a>
-        </div>
+    <!-- Okrągły przycisk "Mój profil" -->
+    <div class="profile-button">
+        <a href="/home/profile">
+            <button>
+                <span class="profile-icon">👤</span>
+            </button>
+        </a>
     </div>
 
-    <script>
-        // Przykładowe dane preferencji użytkownika (do testowania)
-        const preferences = [
-            { name: "Preferencja 1", description: "Opis preferencji 1", details: "Szczegóły 1" },
-            { name: "Preferencja 2", description: "Opis preferencji 2", details: "Szczegóły 2" },
-            { name: "Preferencja 3", description: "Opis preferencji 3", details: "Szczegóły 3" },
-            { name: "Preferencja 4", description: "Opis preferencji 4", details: "Szczegóły 4" },
-            { name: "Preferencja 5", description: "Opis preferencji 5", details: "Szczegóły 5" },
-            { name: "Preferencja 6", description: "Opis preferencji 6", details: "Szczegóły 6" },
-            { name: "Preferencja 7", description: "Opis preferencji 7", details: "Szczegóły 7" }
-        ];
+    <!-- Nagłówek -->
+    <h1>Preferencje użytkownika</h1>
 
-        const rowsPerPage = 5;
-        let currentPage = 1;
+    <div class="table-container">
+        @!component('components/preferences_table', {
+            data: userPreferences,
+            columns: [
+            { key: 'name', label: 'Nazwa preferencji'},
+            [{ key: 'isActive', label: 'Aktywna', render: (userPreference) => userPreference.isActive ? 'Tak' : 'Nie' }],
+            [{ key: 'details', label: 'Akcje', render: (userPreference) => `<a class="details-link" href='/home/${userPreference.index}'>Szczegóły</a>` }]
+        ]})
+    
+        <!-- Przycisk dodania nowej preferencji -->
+        <button class="add-preference-btn">Dodaj nową preferencję</button>
 
-        function displayTable() {
-            const tableBody = document.getElementById('preferenceTableBody');
-            tableBody.innerHTML = ''; // Wyczyść zawartość tabeli
+        <div class="pagination">
 
-            const startIndex = (currentPage - 1) * rowsPerPage;
-            const endIndex = startIndex + rowsPerPage;
-            const paginatedPreferences = preferences.slice(startIndex, endIndex);
-
-            paginatedPreferences.forEach(preference => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${preference.name}</td>
-                    <td>${preference.description}</td>
-                    <td><button class="btn">Zobacz szczegóły</button></td>
-                `;
-                tableBody.appendChild(row);
-            });
-
-            displayPagination();
-        }
-
-        function displayPagination() {
-            const paginationDiv = document.getElementById('pagination');
-            paginationDiv.innerHTML = '';
-
-            const totalPages = Math.ceil(preferences.length / rowsPerPage);
-
-            for (let i = 1; i <= totalPages; i++) {
-                const button = document.createElement('button');
-                button.textContent = i;
-                button.addEventListener('click', () => {
-                    currentPage = i;
-                    displayTable();
-                });
-                paginationDiv.appendChild(button);
-            }
-        }
-
-        document.getElementById('addPreferenceBtn').addEventListener('click', () => {
-            window.location.href = '/preferences/new'; // Przekierowanie do formularza dodawania preferencji
-        });
-
-        // Inicjalne wyświetlenie tabeli i paginacji
-        displayTable();
-    </script>
+            @if(userPreferences.currentPage > 1)
+            <a href="/home/?page={{userPreferences.currentPage-1}}"><button>&laquo; Poprzednia strona</button></a>
+            @endif
+    
+            @each(anchor in userPreferences.getUrlsForRange(1, userPreferences.lastPage))
+            <a href="/home{{ anchor.url }}"><button>  {{ anchor.page }}  </button></a>
+            @endeach
+    
+            @if(userPreferences.currentPage < userPreferences.lastPage)
+            <a href="/home/?page={{userPreferences.currentPage+1}}"><button>Następna strona &raquo;</button></a>
+            @endif
+    
+        </div>
+    </div>
 </body>
 </html>
