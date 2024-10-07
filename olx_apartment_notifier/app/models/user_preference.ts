@@ -16,6 +16,9 @@ export default class UserPreference extends BaseModel {
   declare userId: number
 
   @column()
+  declare name: string
+
+  @column()
   declare isActive: boolean
 
   @column()

@@ -77,6 +77,7 @@ export default class extends BaseSeeder {
     await UserPreference.create({
       id: 1,
       userId: 2,
+      name: 'Abchbhd',
       isActive: false,
 
       titleKeywords: {value: 'skj'},
@@ -89,9 +90,29 @@ export default class extends BaseSeeder {
       petsAllowed: false,
       lift: true,
       type: 15,
-      regionId: 1,
-      cityId: 12849,
-      districtId: 4
+      regionId: 3,
+      cityId: 19701,
+      districtId: 387
+    })
+
+    await UserPreference.create({
+      userId: 2,
+      name: 'Preff nazwa 8',
+      isActive: true,
+
+      titleKeywords: {value: 'advdsv'},
+      descriptionKeywords: {value: ['gsdgsd', 'dfdbdsffbdsbfbs']},
+      rooms: {value: [3,4]},
+      square: {min: 25, max: 49},
+      price: {min: 1000, max: 2350.5},
+      floor: {values: [2,3,4]},
+      furnished: true,
+      petsAllowed: false,
+      lift: true,
+      type: 15,
+      regionId: 3,
+      cityId: 19701,
+      districtId: 387
     })
 
     await Advertisment.create({
