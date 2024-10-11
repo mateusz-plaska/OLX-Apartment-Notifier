@@ -32,6 +32,27 @@ export default class extends BaseSeeder {
       password: '123123123'
     })
 
+    await UserPreference.create({
+      userId: 2,
+      name: 'bdfbd 2',
+      isActive: false,
+
+      titleKeywords: 'd, gad',
+      descriptionKeywords: 'asv, sgt',
+      rooms: '2,4',
+      square: '15;29',
+      price: '821.4;1891.1',
+      floor: '1,2,3,4',
+      furnished: true,
+      petsAllowed: true,
+      lift: true,
+      carPark: false,
+      rentPrice: '300.45;2590.5',
+      priceForM2: '1000;9320.54',
+      regionId: 3,
+      cityId: 19701,
+      districtId: 387
+    })
 
     await BuildingType.create({
       id: 1,
@@ -80,12 +101,12 @@ export default class extends BaseSeeder {
       name: 'Abchbhd',
       isActive: false,
 
-      titleKeywords: {value: 'skj'},
-      descriptionKeywords: {value: 'jkjsfd'},
-      rooms: {value: [1,2]},
-      square: {min: 15, max: 29},
-      price: {min: 1000, max: 1891.1},
-      floor: {values: [1,2,9,4]},
+      titleKeywords: 'skj',
+      descriptionKeywords: 'jkjsfd',
+      rooms: '1,2',
+      square: '15;29',
+      price: '1000;1891.1',
+      floor: '1,2,9,4',
       furnished: true,
       petsAllowed: false,
       lift: true,
@@ -100,12 +121,12 @@ export default class extends BaseSeeder {
       name: 'Preff nazwa 8',
       isActive: true,
 
-      titleKeywords: {value: 'advdsv'},
-      descriptionKeywords: {value: ['gsdgsd', 'dfdbdsffbdsbfbs']},
-      rooms: {value: [3,4]},
-      square: {min: 25, max: 49},
-      price: {min: 1000, max: 2350.5},
-      floor: {values: [2,3,4]},
+      titleKeywords: 'advdsv',
+      descriptionKeywords: 'gsdgsd,dfdbdsffbdsbfbs',
+      rooms: '3,4',
+      square: '25;49',
+      price: '1000;2350.5',
+      floor: '2,3,4',
       furnished: true,
       petsAllowed: false,
       lift: true,
@@ -139,8 +160,10 @@ export default class extends BaseSeeder {
   }
 
   async test4() {
-    const userPreference = await UserPreference.findOrFail(1)
+    const userPreference1 = await UserPreference.findOrFail(15)
+    await userPreference1.related('buildingTypes').attach([13, 14, 12])
 
-    await userPreference.related('buildingTypes').attach([3, 4, 2])
+    const userPreference2 = await UserPreference.findOrFail(16)
+    await userPreference2.related('buildingTypes').attach([12,13,14,15,16,17,18])
   }
 }
