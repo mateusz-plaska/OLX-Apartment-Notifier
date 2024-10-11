@@ -1,9 +1,4 @@
-import Advertisment from '#models/advertisment'
-import BuildingType from '#models/building_type'
-import City from '#models/city'
-import District from '#models/district'
 import NotificationStory from '#models/notification_story'
-import Region from '#models/region'
 import User from '#models/user'
 import UserPreference from '#models/user_preference'
 import { BaseSeeder } from '@adonisjs/lucid/seeders'
@@ -19,19 +14,19 @@ export default class extends BaseSeeder {
 
   async test1() {
     await User.create({
-      id: 1, 
       fullName: 'Mate',
       email: 'plaskamateuszi8@gmail.com',
       password: '123123123'
     })
 
     await User.create({
-      id: 2,
       fullName: 'jaifj',
       email: '1@gmail.com',
       password: '123123123'
     })
+  }
 
+  async test2() {
     await UserPreference.create({
       userId: 2,
       name: 'bdfbd 2',
@@ -54,49 +49,7 @@ export default class extends BaseSeeder {
       districtId: 387
     })
 
-    await BuildingType.create({
-      id: 1,
-      name: 'dom'
-    })
-
-    await BuildingType.create({
-      id: 2,
-      name: 'blok'
-    })
-
-    await BuildingType.create({
-      id: 3,
-      name: 'kamienica'
-    })
-
-    await BuildingType.create({
-      id: 4,
-      name: 'apartamentowiec'
-    })
-
-    await Region.create({
-      id: 1,
-      normalizedName: 'dolonslaskie',
-      name:'dolnośląskie'
-    })
-
-    await City.create({
-      id: 12849,
-      regionId: 1,
-      name: 'Wrocław',
-      normalizedName: 'Wroclaw'
-    })
-
-    await District.create({
-      id: 4,
-      cityId: 12849,
-      name: 'Śródmieście'
-    })
-  }
-
-  async test2() {
     await UserPreference.create({
-      id: 1,
       userId: 2,
       name: 'Abchbhd',
       isActive: false,
@@ -136,34 +89,60 @@ export default class extends BaseSeeder {
       districtId: 387
     })
 
-    await Advertisment.create({
-      id: 1,
-      title: 'fjaksjfk',
-      description: 'ajkfjaskfjakf',
-      urlLink: '12894',
-      buildingTypeId: 1,
-      rentPrice: 140.24,
-      type: 14,
-      regionId: 1,
-      cityId: 12849,
-      districtId: 4
+    await UserPreference.create({
+      userId: 2,
+      name: 'Nazwa 2',
+      isActive: true,
+
+      titleKeywords: 'hgdfjsn',
+      descriptionKeywords: 'kynsth,dfdbdsffbdsbfbs',
+      rooms: '3,4,7',
+      square: '25;49',
+      price: '1000;2350.5',
+      floor: '2,3,4',
+      furnished: true,
+      petsAllowed: false,
+      lift: true,
+      type: 15,
+      regionId: 3,
+      cityId: 19701,
+      districtId: 387
+    })
+
+    await UserPreference.create({
+      userId: 1,
+      name: 'Nazwa 1',
+      isActive: true,
+
+      titleKeywords: 'jyndfg',
+      descriptionKeywords: 'kufm,nnytsd',
+      rooms: '2,4,7',
+      square: '25;49',
+      price: '1000;2350.5',
+      floor: '2,3,4',
+      furnished: true,
+      petsAllowed: false,
+      lift: true,
+      type: 15,
+      regionId: 3,
+      cityId: 19701,
+      districtId: 387
     })
   }
 
   async test3() {
     await NotificationStory.create({
-      id: 1,
-      userPreferenceId: 1,
+      userPreferenceId: 2,
       advertismentId: 1,
       sentDate: DateTime.now()
     })
   }
 
   async test4() {
-    const userPreference1 = await UserPreference.findOrFail(15)
-    await userPreference1.related('buildingTypes').attach([13, 14, 12])
+    const userPreference1 = await UserPreference.findOrFail(2)
+    await userPreference1.related('buildingTypes').attach([1,2,3])
 
-    const userPreference2 = await UserPreference.findOrFail(16)
-    await userPreference2.related('buildingTypes').attach([12,13,14,15,16,17,18])
+    const userPreference2 = await UserPreference.findOrFail(3)
+    await userPreference2.related('buildingTypes').attach([1,2,3,4,5,6,7])
   }
 }
