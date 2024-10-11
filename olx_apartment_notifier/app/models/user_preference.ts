@@ -22,22 +22,22 @@ export default class UserPreference extends BaseModel {
   declare isActive: boolean
 
   @column()
-  declare titleKeywords: object
+  declare titleKeywords: string
   
   @column()
-  declare descriptionKeywords: object
+  declare descriptionKeywords: string
 
   @column()
-  declare rooms: object
+  declare rooms: string
 
   @column()
-  declare square: object
+  declare square: string
 
   @column()
-  declare price: object
+  declare price: string
 
   @column()
-  declare floor: object
+  declare floor: string
 
   @column()
   declare furnished: boolean
@@ -52,22 +52,22 @@ export default class UserPreference extends BaseModel {
   declare carPark: boolean
   
   @column()
-  declare rentPrice: object
+  declare rentPrice: string
 
   @column()
-  declare priceForM2: object
+  declare priceForM2: string
 
   @column()
   declare type: number
 
   @column()
-  declare regionId: number
+  declare regionId: number | null
 
   @column()
-  declare cityId: number
+  declare cityId: number | null
 
   @column()
-  declare districtId: number
+  declare districtId: number | null
 
   @column.dateTime({ 
     autoCreate: true,
