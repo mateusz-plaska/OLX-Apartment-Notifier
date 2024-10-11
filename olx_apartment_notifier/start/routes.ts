@@ -12,15 +12,16 @@ import UserPreferencesController from '#controllers/user_preferences_controller'
 import UsersController from '#controllers/users_controller'
 import router from '@adonisjs/core/services/router'
 import { middleware } from './kernel.js'
+import { throttleRequestsAuth } from './limiter.js'
 
 
 router.get('', [AuthLoginController, 'getInitialView'])
 
 router.get('/login', [AuthLoginController, 'getLoginView'])
-router.post('/login', [AuthLoginController, 'login'])
+router.post('/login', [AuthLoginController, 'login']).use(throttleRequestsAuth)
 
 router.get('/registration', [UsersController, 'getRegistrationView'])
-router.post('/registration', [UsersController, 'create'])
+router.post('/registration', [UsersController, 'create']).use(throttleRequestsAuth)
 
 router.group(() => {
     router.get('', [UserPreferencesController, 'getHomeViewAndUserPreferences'])
