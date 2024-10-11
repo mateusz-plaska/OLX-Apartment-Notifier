@@ -24,13 +24,13 @@
         @!component('components/preferences_table', {
             data: userPreferences,
             columns: [
-            { key: 'name', label: 'Nazwa preferencji'},
-            [{ key: 'isActive', label: 'Aktywna', render: (userPreference) => userPreference.isActive ? 'Tak' : 'Nie' }],
-            [{ key: 'details', label: 'Akcje', render: (userPreference) => `<a class="details-link" href='/home/${userPreference.index}'>Szczegóły</a>` }]
+            { key: 'name', label: 'Nazwa preferencji' },
+            [{ key: 'isActive', label: 'Aktywna', render: (userPreference) => userPreference.isActive ? 'Tak' : 'Nie' }], 
+            [{ key: 'details', label: 'Akcje', render: (userPreference) => `<a class="details-link" href='/home/update-preference/${userPreference.id}'>Szczegóły</a>` }]
         ]})
     
         <!-- Przycisk dodania nowej preferencji -->
-        <button class="add-preference-btn">Dodaj nową preferencję</button>
+        <a href="/home/create-preference"><button class="add-preference-btn">Dodaj nową preferencję</button></a>
 
         <div class="pagination">
 

@@ -20,7 +20,7 @@
                 @if(Array.isArray(column))
                     {{{column[0].render(row)}}} 
                 @else
-                    {{row[column.key]}}
+                    {{row[column.key] !== null ? row[column.key] : ''}}
                 @endif
             </td>  
           @endeach

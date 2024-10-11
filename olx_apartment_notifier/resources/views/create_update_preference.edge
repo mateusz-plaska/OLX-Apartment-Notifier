@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OLX Apartment Notifier - {{ userPreference ? 'Aktualizuj' : 'Utwórz' }} Preferencję</title>
+
+    @vite(['resources/css/create_update_preference.css'])
+</head>
+<body>
+    <div class="form-container">
+
+        <a href="/home">
+            <button class="back-btn">Powrót do głównej strony</button>
+        </a>
+
+        @each(error in flashMessages.get('errors')) 
+            <p class="error-message">{{ error }}</p>
+        @endeach
+
+        @flashMessage('error')
+            <p class="error-message">{{ $message }}</p>
+        @end
+
+        <h1 class="form-title">{{ userPreference ? 'Aktualizuj' : 'Utwórz' }} Preferencję</h1>
+        <form action="{{ userPreference ? `/home/update-preference/${userPreference.id}` : '/home/create-preference' }}" method="POST">
+            {{ csrfField() }}
+    
+            <!-- Name -->
+            <div class="form-group">
+                <label for="name">Nazwa Preferencji</label>
+                <input type="text" id="name" name="name" class="nullable-field" value="{{ userPreference ? userPreference.name : '' }}">
+            </div>
+
+            <!-- Title Keywords -->
+            <div class="form-group">
+                <label for="title_keywords">Słowa kluczowe tytułu (oddziel przecinkami)</label>
+                <input type="text" id="title_keywords" name="title_keywords" class="nullable-field" value="{{ userPreference ? userPreference.titleKeywords : '' }}">
+            </div>
+    
+            <!-- Description Keywords -->
+            <div class="form-group">
+                <label for="description_keywords">Słowa kluczowe opisu (oddziel przecinkami)</label>
+                <input type="text" id="description_keywords" name="description_keywords" class="nullable-field" value="{{ userPreference ? userPreference.descriptionKeywords : '' }}">
+            </div>
+    
+            <!-- Rooms -->
+            <div class="form-group">
+                <label for="rooms">Ilość pokoi (oddziel przecinkami)</label>
+                <input type="text" id="rooms" name="rooms" class="nullable-field" value="{{ userPreference ? userPreference.rooms : '' }}">
+            </div>
+
+            <!-- Building type -->
+            <div class="form-group">
+                <label>Rodzaj zabudowy</label>
+                <div class="dropdown">
+                    <p class="dropdown-btn">Rodzaj zabudowy <span class="arrow">▼</span></p>
+                    <div id="dropdown-list" class="dropdown-content">
+                        <label><input type="checkbox" id="all" onclick="toggleAll(this)"> Wszystkie</label>
+
+                        @each(buildingType in buildingTypes)
+                            <label>
+                                <input type="checkbox" class="built-type" name="building_type_ids" 
+                                        value="{{ buildingType.id }}"> {{ buildingType.name }}
+                            </label>
+                        @endeach
+                    </div>
+                </div>
+            </div>
+
+            <!-- Square (min, max) -->
+            <div class="form-group">
+                <label for="square_min">Powierzchnia [m²] (min)</label>
+                <input type="number" step="0.01" id="square_min" name="square_min" value="{{ userPreference ? userPreference.square.split(';')[0] : '' }}">
+            </div>
+            
+            <div class="form-group">
+                <label for="square_max">Powierzchnia [m²] (max)</label>
+                <input type="number" step="0.01" id="square_max" name="square_max" value="{{ userPreference ? userPreference.square.split(';')[1] : '' }}">
+            </div>
+      
+            <!-- Price (min, max) -->
+            <div class="form-group">
+                <label for="price_min">Cena [zł] (min)</label>
+                <input type="number" step="0.01" id="price_min" name="price_min" value="{{ userPreference ? userPreference.price.split(';')[0] : '' }}">
+            </div>
+            <div class="form-group">
+                <label for="price_max">Cena [zł] (max)</label>
+                <input type="number" step="0.01" id="price_max" name="price_max" value="{{ userPreference ? userPreference.price.split(';')[1] : '' }}">
+            </div>
+    
+            <!-- Floor -->
+            <div class="form-group">
+                <label for="floor">Piętro (oddziel przecinkami)</label>
+                <input type="text" id="floor" name="floor" class="nullable-field" value="{{ userPreference ? userPreference.floor : '' }}">
+            </div>
+    
+            <!-- Furnished -->
+            <div class="form-group">
+                <label for="furnished">Umeblowane</label>
+                <input type="checkbox" id="furnished" name="furnished" {{ userPreference?.furnished ? 'checked' : '' }}>
+            </div>
+    
+            <!-- Pets Allowed -->
+            <div class="form-group">
+                <label for="pets_allowed">Zwierzęta dozwolone</label>
+                <input type="checkbox" id="pets_allowed" name="pets_allowed" {{ userPreference?.petsAllowed ? 'checked' : '' }}>
+            </div>
+    
+            <!-- Lift -->
+            <div class="form-group">
+                <label for="lift">Winda</label>
+                <input type="checkbox" id="lift" name="lift" {{ userPreference?.lift ? 'checked' : '' }}>
+            </div>
+    
+            <!-- Car Park -->
+            <div class="form-group">
+                <label for="car_park">Parking</label>
+                <input type="checkbox" id="car_park" name="car_park" {{ userPreference?.carPark ? 'checked' : '' }}>
+            </div>
+    
+            <!-- Rent Price (min, max) -->
+            <div class="form-group">
+                <label for="rent_price_min">Czynsz [zł] (min)</label>
+                <input type="number" step="0.01" id="rent_price_min" name="rent_price_min" value="{{ userPreference ? userPreference.rentPrice.split(';')[0] : '' }}">
+            </div>
+            <div class="form-group">
+                <label for="rent_price_max">Czynsz [zł] (max)</label>
+                <input type="number" step="0.01" id="rent_price_max" name="rent_price_max" value="{{ userPreference ? userPreference.rentPrice.split(';')[1] : '' }}">
+            </div>
+    
+            <!-- Price per m2 (min, max) -->
+            <div class="form-group">
+                <label for="price_for_m2_min">Cena za m² [zł] (min)</label>
+                <input type="number" step="0.01" id="price_for_m2_min" name="price_for_m2_min" value="{{ userPreference ? userPreference.priceForM2.split(';')[0] : '' }}">
+            </div>
+            <div class="form-group">
+                <label for="price_for_m2_max">Cena za m² [zł] (max)</label>
+                <input type="number" step="0.01" id="price_for_m2_max" name="price_for_m2_max" value="{{ userPreference ? userPreference.priceForM2.split(';')[1] : '' }}">
+            </div>
+    
+            <!-- Type (sell, rent) -->
+            <div class="form-group">
+                <label for="type">Typ</label>
+                <select id="type" name="type">
+                    <option value="14" {{ userPreference?.type == 14 ? 'selected' : '' }}>Sprzedaż</option>
+                    <option value="15" {{ userPreference?.type == 15 ? 'selected' : '' }}>Wynajem</option>
+                    <option value="0" {{ userPreference?.type == 0 ? 'selected' : '' }}>Obie</option>
+                </select>
+            </div>
+    
+
+            <div class="form-group">
+                <label for="region_id">Region</label>
+                <select id="region_id" name="region_id">
+                    <option value="">Wybierz region</option>
+                    @each(region in regions)
+                        <option value="{{region.id}}" {{ userPreference?.regionId == region.id ? 'selected' : '' }}>
+                            {{ region.name }}
+                        </option>
+                    @endeach
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="city_id">Miasto</label>
+                <select id="city_id" name="city_id">
+                    <option value="">Wybierz miasto</option>
+                </select>
+            </div>
+            
+            <!-- Dzielnice -->
+            <div class="form-group">
+                <label for="district_id">Dzielnica</label>
+                <select id="district_id" name="district_id">
+                    <option value="">Wybierz dzielnicę</option>
+                </select>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="form-buttons">
+                <button type="submit" class="submit-btn">{{ userPreference ? 'Aktualizuj' : 'Utwórz' }} Preferencję</button>
+            </div>
+        </form>
+
+        <div class="form-buttons">
+            @if(userPreference)
+                <a href="/home/delete-preference/{{userPreference.id}}" onclick="return confirmDelete();">
+                    <button class="delete-btn">Usuń Preferencję</button></a>
+            @endif 
+        </div>
+    </div>
+--}}
+    <script>
+        function confirmDelete() {
+            return confirm('Czy na pewno chcesz usunąć swoje konto?');
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const inputs = document.querySelectorAll('.nullable-field');
+            inputs.forEach(input => {
+                if (input.value === 'null') {
+                    input.value = "";
+                }
+            });
+
+            const regionSelect = document.getElementById('region_id');
+            const citySelect = document.getElementById('city_id');
+            const districtSelect = document.getElementById('district_id');
+
+            function loadCities(regionId, selectedCityId = null) {            
+                fetch(`/cities-by-region/${regionId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        citySelect.innerHTML = '<option value="">Wybierz miasto</option>';
+                        data.forEach(city => {
+                            const option = document.createElement('option');
+                            option.value = city.id;
+                            option.text = city.name;
+                            if (selectedCityId && selectedCityId == city.id) {
+                                option.selected = true;
+                            }
+                            citySelect.appendChild(option);
+                        });
+                    });
+            }
+
+            function loadDistricts(cityId, selectedDistrictId = null) {
+                fetch(`/districts-by-city/${cityId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.length > 0) {
+                            districtSelect.innerHTML = '<option value="">Wybierz dzielnicę</option>';
+                            data.forEach(district => {
+                                const option = document.createElement('option');
+                                option.value = district.id;
+                                option.text = district.name;
+                                if (selectedDistrictId && selectedDistrictId == district.id) {
+                                    option.selected = true;
+                                }
+                                districtSelect.appendChild(option);
+                            });
+                        } else {
+                            districtSelect.innerHTML = '<option value="">Brak dzielnic</option>';
+                        }
+                    });
+            }
+
+            regionSelect.addEventListener('change', function() {
+                const regionId = this.value;
+                loadCities(regionId);
+            });
+
+            citySelect.addEventListener('change', function() {
+                const cityId = this.value;
+                loadDistricts(cityId);
+            });
+
+            const selectedRegionId = {{ userPreference?.regionId || 'null' }};
+            const selectedCityId = {{ userPreference?.cityId || 'null' }};
+            const selectedDistrictId = {{ userPreference?.districtId || 'null' }};
+
+            if (selectedRegionId) {
+                regionSelect.value = selectedRegionId;
+                loadCities(selectedRegionId, selectedCityId); 
+            }
+
+            if (selectedCityId) {
+                citySelect.value = selectedCityId;
+                loadDistricts(selectedCityId, selectedDistrictId);
+            }
+
+
+            function set(userPreferenceId) {
+                fetch(`/selected-building-types-in-user-preference/${userPreferenceId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.length == {{ buildingTypes.length }}) {
+                            document.getElementById('all').checked = true;
+                        }
+
+                        data.forEach(buildingTypeId => {
+                            const checkbox = document.querySelector(`input[value="${buildingTypeId}"]`);
+                            if (checkbox) {
+                                checkbox.checked = true;
+                            }
+                        })
+                    });
+            }
+
+            const userPreferenceId = {{ userPreference?.id || 'null' }}
+
+            if (userPreferenceId) {
+                set(userPreferenceId)
+            }
+        });
+
+
+        // Funkcja do otwierania/zamykania listy rozwijanej
+        document.querySelector('.dropdown-btn').addEventListener('click', function() {
+            document.querySelector('.dropdown-content').classList.toggle('show');
+        });
+
+        // Funkcja do zaznaczania/odznaczania wszystkich checkboxów
+        function toggleAll(source) {
+            const checkboxes = document.querySelectorAll('.built-type');
+            for (const checkbox of checkboxes) {
+                checkbox.checked = source.checked;
+            }
+        }
+
+        // Zamknięcie listy rozwijanej po kliknięciu poza nią
+        window.onclick = function(event) {
+            if (!event.target.matches('.dropdown-btn')) {
+                const dropdowns = document.getElementsByClassName('dropdown-content');
+                for (let i = 0; i < dropdowns.length; i++) {
+                    const openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        };
+
+        document.getElementById("dropdown-list").addEventListener('click', function(event) {
+            event.stopPropagation(); // To zapobiega zamknięciu listy
+        });
+    </script>
+</body>
+</html>
