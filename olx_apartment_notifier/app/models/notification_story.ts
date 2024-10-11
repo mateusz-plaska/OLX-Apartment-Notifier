@@ -2,8 +2,6 @@ import { DateTime } from 'luxon'
 import { BaseModel, belongsTo, column } from '@adonisjs/lucid/orm'
 import UserPreference from './user_preference.js'
 import type { BelongsTo } from '@adonisjs/lucid/types/relations'
-import Advertisment from './advertisment.js'
-import { serialize } from 'v8'
 
 export default class NotificationStory extends BaseModel {
   @column({ isPrimary: true })
@@ -36,7 +34,4 @@ export default class NotificationStory extends BaseModel {
 
   @belongsTo(() => UserPreference)
   declare userPreference: BelongsTo<typeof UserPreference>
-
-  @belongsTo(() => Advertisment)
-  declare advertisment: BelongsTo<typeof Advertisment>
 }

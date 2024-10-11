@@ -10,20 +10,21 @@ export default class extends BaseSchema {
       table.integer('user_id').unsigned().references('users.id').onDelete('CASCADE')
       table.boolean('is_active')
 
-      table.json('title_keywords')    
-      table.json('description_keywords')
-      table.json('rooms')
-      table.json('square')
-      table.json('price')
-      table.json('floor')
-      table.boolean('furnished')
+      table.text('name')
+      table.string('title_keywords')    
+      table.string('description_keywords')
+      table.string('rooms')
+      table.string('square')
+      table.string('price')
+      table.string('floor')
 
+      table.boolean('furnished')
       table.boolean('pets_allowed')
       table.boolean('lift')
       table.boolean('car_park')
 
-      table.json('rent_price')
-      table.json('price_for_m2')
+      table.string('rent_price')
+      table.string('price_for_m_2')
       table.integer('type')              // 14 - sell, 15 - rent 
 
       table.integer('region_id').unsigned().references('regions.id').onDelete('SET NULL')

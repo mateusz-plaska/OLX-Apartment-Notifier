@@ -2,7 +2,6 @@ import { DateTime } from 'luxon'
 import { BaseModel, column, hasMany } from '@adonisjs/lucid/orm'
 import City from './city.js'
 import type { HasMany } from '@adonisjs/lucid/types/relations'
-import Advertisment from './advertisment.js'
 import UserPreference from './user_preference.js'
 
 export default class Region extends BaseModel {
@@ -33,7 +32,4 @@ export default class Region extends BaseModel {
 
   @hasMany(() => UserPreference)
   declare userPreference: HasMany<typeof UserPreference>
-
-  @hasMany(() => Advertisment)
-  declare advertisment: HasMany<typeof Advertisment>
 }

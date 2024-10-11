@@ -8,7 +8,7 @@ export default class extends BaseSchema {
       table.increments('id')
 
       table.integer('user_preference_id').unsigned().references('user_preferences.id').onDelete('CASCADE')
-      table.integer('advertisment_id').unsigned().references('advertisments.id').onDelete('CASCADE')
+      table.integer('advertisment_id')
       table.dateTime('sent_date')
 
       table.timestamps(true, true)
