@@ -14,6 +14,7 @@
             <button class="back-btn">Powrót do głównej strony</button>
         </a>
 
+
         @each(error in flashMessages.get('errors')) 
             <p class="error-message">{{ error }}</p>
         @endeach
@@ -21,6 +22,7 @@
         @flashMessage('error')
             <p class="error-message">{{ $message }}</p>
         @end
+
 
         <h1 class="form-title">{{ userPreference ? 'Aktualizuj' : 'Utwórz' }} Preferencję</h1>
         <form action="{{ userPreference ? `/home/update-preference/${userPreference.id}` : '/home/create-preference' }}" method="POST">
@@ -32,23 +34,27 @@
                 <input type="text" id="name" name="name" class="nullable-field" value="{{ userPreference ? userPreference.name : '' }}">
             </div>
 
+
             <!-- Title Keywords -->
             <div class="form-group">
                 <label for="title_keywords">Słowa kluczowe tytułu (oddziel przecinkami)</label>
                 <input type="text" id="title_keywords" name="title_keywords" class="nullable-field" value="{{ userPreference ? userPreference.titleKeywords : '' }}">
             </div>
     
+
             <!-- Description Keywords -->
             <div class="form-group">
                 <label for="description_keywords">Słowa kluczowe opisu (oddziel przecinkami)</label>
                 <input type="text" id="description_keywords" name="description_keywords" class="nullable-field" value="{{ userPreference ? userPreference.descriptionKeywords : '' }}">
             </div>
     
+
             <!-- Rooms -->
             <div class="form-group">
                 <label for="rooms">Ilość pokoi (oddziel przecinkami)</label>
                 <input type="text" id="rooms" name="rooms" class="nullable-field" value="{{ userPreference ? userPreference.rooms : '' }}">
             </div>
+
 
             <!-- Building type -->
             <div class="form-group">
@@ -68,6 +74,7 @@
                 </div>
             </div>
 
+
             <!-- Square (min, max) -->
             <div class="form-group">
                 <label for="square_min">Powierzchnia [m²] (min)</label>
@@ -79,6 +86,7 @@
                 <input type="number" step="0.01" id="square_max" name="square_max" value="{{ userPreference ? userPreference.square.split(';')[1] : '' }}">
             </div>
       
+
             <!-- Price (min, max) -->
             <div class="form-group">
                 <label for="price_min">Cena [zł] (min)</label>
@@ -89,36 +97,42 @@
                 <input type="number" step="0.01" id="price_max" name="price_max" value="{{ userPreference ? userPreference.price.split(';')[1] : '' }}">
             </div>
     
+
             <!-- Floor -->
             <div class="form-group">
                 <label for="floor">Piętro (oddziel przecinkami)</label>
                 <input type="text" id="floor" name="floor" class="nullable-field" value="{{ userPreference ? userPreference.floor : '' }}">
             </div>
     
+
             <!-- Furnished -->
             <div class="form-group">
                 <label for="furnished">Umeblowane</label>
                 <input type="checkbox" id="furnished" name="furnished" {{ userPreference?.furnished ? 'checked' : '' }}>
             </div>
     
+
             <!-- Pets Allowed -->
             <div class="form-group">
                 <label for="pets_allowed">Zwierzęta dozwolone</label>
                 <input type="checkbox" id="pets_allowed" name="pets_allowed" {{ userPreference?.petsAllowed ? 'checked' : '' }}>
             </div>
     
+
             <!-- Lift -->
             <div class="form-group">
                 <label for="lift">Winda</label>
                 <input type="checkbox" id="lift" name="lift" {{ userPreference?.lift ? 'checked' : '' }}>
             </div>
     
+
             <!-- Car Park -->
             <div class="form-group">
                 <label for="car_park">Parking</label>
                 <input type="checkbox" id="car_park" name="car_park" {{ userPreference?.carPark ? 'checked' : '' }}>
             </div>
     
+
             <!-- Rent Price (min, max) -->
             <div class="form-group">
                 <label for="rent_price_min">Czynsz [zł] (min)</label>
@@ -129,6 +143,7 @@
                 <input type="number" step="0.01" id="rent_price_max" name="rent_price_max" value="{{ userPreference ? userPreference.rentPrice.split(';')[1] : '' }}">
             </div>
     
+
             <!-- Price per m2 (min, max) -->
             <div class="form-group">
                 <label for="price_for_m2_min">Cena za m² [zł] (min)</label>
@@ -139,6 +154,7 @@
                 <input type="number" step="0.01" id="price_for_m2_max" name="price_for_m2_max" value="{{ userPreference ? userPreference.priceForM2.split(';')[1] : '' }}">
             </div>
     
+
             <!-- Type (sell, rent) -->
             <div class="form-group">
                 <label for="type">Typ</label>
@@ -177,11 +193,14 @@
                 </select>
             </div>
 
+
+            
             <!-- Submit Button -->
             <div class="form-buttons">
                 <button type="submit" class="submit-btn">{{ userPreference ? 'Aktualizuj' : 'Utwórz' }} Preferencję</button>
             </div>
         </form>
+
 
         <div class="form-buttons">
             @if(userPreference)
@@ -190,7 +209,7 @@
             @endif 
         </div>
     </div>
---}}
+
     <script>
         function confirmDelete() {
             return confirm('Czy na pewno chcesz usunąć swoje konto?');
