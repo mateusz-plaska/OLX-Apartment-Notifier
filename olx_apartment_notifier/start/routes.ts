@@ -13,6 +13,7 @@ import UsersController from '#controllers/users_controller'
 import router from '@adonisjs/core/services/router'
 import { middleware } from './kernel.js'
 import { throttleRequestsAuth } from './limiter.js'
+import LocationsController from '#controllers/locations_controller'
 
 
 router.get('', [AuthLoginController, 'getInitialView'])
@@ -44,7 +45,7 @@ router.group(() => {
 }).prefix('/home').use(middleware.auth())
 
 
-router.get('/cities-by-region/:regionId', [UserPreferencesController, 'getCitiesByRegion']).where('regionId', /^[0-9]+$/)
-router.get('/districts-by-city/:cityId', [UserPreferencesController, 'getDistrictsByCity']).where('cityId', /^[0-9]+$/)
+router.get('/cities-by-region/:regionId', [LocationsController, 'getCitiesByRegion']).where('regionId', /^[0-9]+$/)
+router.get('/districts-by-city/:cityId', [LocationsController, 'getDistrictsByCity']).where('cityId', /^[0-9]+$/)
 router.get('/selected-building-types-in-user-preference/:userPreferenceId', 
-    [UserPreferencesController, 'getSelectedBuildingTypesInPreference']).where('userPreferenceId', /^[0-9]+$/)
+                [LocationsController, 'getSelectedBuildingTypesInPreference']).where('userPreferenceId', /^[0-9]+$/)
