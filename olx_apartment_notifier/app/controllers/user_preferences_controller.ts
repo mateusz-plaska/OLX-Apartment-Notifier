@@ -15,20 +15,20 @@ export default class UserPreferencesController {
             request.input('perPage', 5)
         )
 
-        return view.render('home_view', {userPreferences})
+        return view.render('app_views/home_view', {userPreferences})
     }
 
     async getCreatePreferenceView({view}: HttpContext) {
         const regions = await Region.query().orderBy('normalizedName')
         const buildingTypes = await BuildingType.query()
-        return view.render('create_update_preference', {regions, buildingTypes})
+        return view.render('app_views/create_update_preference', {regions, buildingTypes})
     }
 
     async getUpdatePreferenceView({params, view}: HttpContext) {
         const userPreference = await UserPreference.findOrFail(params.userPreferenceId)
         const regions = await Region.query().orderBy('normalizedName')
         const buildingTypes = await BuildingType.query()
-        return view.render('create_update_preference', {userPreference, regions, buildingTypes})
+        return view.render('app_views/create_update_preference', {userPreference, regions, buildingTypes})
     }
 
 

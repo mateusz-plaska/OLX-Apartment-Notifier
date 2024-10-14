@@ -4,12 +4,12 @@ import type { HttpContext } from '@adonisjs/core/http'
 
 export default class UsersController {
     async getRegistrationView({view}: HttpContext) {
-        return view.render('registration_view')
+        return view.render('app_views/registration_view')
     }
 
     async showUser({auth, view}: HttpContext) {
         const user = await auth.use().authenticate()
-        return view.render('user_profile_view', {user})
+        return view.render('app_views/user_profile_view', {user})
     }
 
     async create({request, auth, response}: HttpContext) {

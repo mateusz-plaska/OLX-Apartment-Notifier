@@ -3,11 +3,11 @@ import type { HttpContext } from '@adonisjs/core/http'
 
 export default class AuthLoginController {
     async getInitialView({view}: HttpContext) {
-        return view.render('initial_view')
+        return view.render('app_views/initial_view')
     }
 
     async getLoginView({view}: HttpContext) {
-        return view.render('login_view')
+        return view.render('app_views/login_view')
     }
 
     async login({request, auth, session, response}: HttpContext) {
