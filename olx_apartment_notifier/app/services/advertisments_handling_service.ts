@@ -2,6 +2,7 @@ import NotificationStory from "#models/notification_story"
 import UserPreference from "#models/user_preference"
 import { inject } from "@adonisjs/core"
 import AdvertismentPreferenceComparingService from "./advertisment_preference_comparing_service.js"
+import EmailSendingService from "./email_sending_service.js"
 
 export interface Advertisment {
     id: number,
@@ -27,7 +28,8 @@ interface ApiResponse {
 
 export default class AdvertismentsHandlingService {
     @inject()
-    async handleAdvertisments(advertismentPreferenceComparingService: AdvertismentPreferenceComparingService) {
+    async handleAdvertisments(advertismentPreferenceComparingService: AdvertismentPreferenceComparingService, 
+        emailSendingService: EmailSendingService) {
 
 
         // aktualizacja sent_date
@@ -58,7 +60,7 @@ export default class AdvertismentsHandlingService {
                     }
                 }
 
-                // skonfigurowac maila z:   preference + fittedAdvertismentsToSend i wyslac
+                emailSendingService.sendEmailWithPreferenceAndAdvertisments(preference, fittedAdvertismentsToSend)
                 // aktualizacja bazy powiadomien - dodać elementy z preference + fittedAdvertisment
             }
         } 
