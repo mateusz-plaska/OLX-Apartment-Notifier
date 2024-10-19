@@ -38,12 +38,23 @@ export default class AdvertismentsHandlingService {
         }
     }
 
+    async checkCooldownAndUpdateNotifications() {
+        const notifications = await NotificationStory.all()
+
+        for(const notification of notifications) {
+            const resendNotificationCooldownInDays = (await UserPreference.findOrFail(notification.userPreferenceId)).resendNotificationCooldownInDays
+            
+            if(notification.sentDate.plus({ days: resendNotificationCooldownInDays }) <= DateTime.now()) {
+                await notification.delete()
+            }
+        }
+    }
+
     @inject()
     async handleAdvertisments(advertismentPreferenceComparingService: AdvertismentPreferenceComparingService, 
-        emailSendingService: EmailSendingService) {
+                                emailSendingService: EmailSendingService) {
 
-
-        // aktualizacja sent_date
+        await this.checkCooldownAndUpdateNotifications()
 
         let i = 0
         while(true) {
