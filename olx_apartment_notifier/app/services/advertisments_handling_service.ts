@@ -3,6 +3,7 @@ import UserPreference from "#models/user_preference"
 import { inject } from "@adonisjs/core"
 import AdvertismentPreferenceComparingService from "./advertisment_preference_comparing_service.js"
 import EmailSendingService from "./email_sending_service.js"
+import { DateTime } from "luxon"
 
 export interface Advertisment {
     id: number,
@@ -27,6 +28,16 @@ interface ApiResponse {
 
 
 export default class AdvertismentsHandlingService {
+    async addNotificationsToDatabse(preference: UserPreference, advertisments: Advertisment[]) {
+        for(const advertisment of advertisments) {
+            await NotificationStory.create({
+                userPreferenceId: preference.id,
+                advertismentId: advertisment.id,
+                sentDate: DateTime.now()
+            })
+        }
+    }
+
     @inject()
     async handleAdvertisments(advertismentPreferenceComparingService: AdvertismentPreferenceComparingService, 
         emailSendingService: EmailSendingService) {
@@ -60,9 +71,9 @@ export default class AdvertismentsHandlingService {
                     }
                 }
 
-                emailSendingService.sendEmailWithPreferenceAndAdvertisments(preference, fittedAdvertismentsToSend)
-                // aktualizacja bazy powiadomien - dodać elementy z preference + fittedAdvertisment
-            }
-        } 
+                await emailSendingService.sendEmailWithPreferenceAndAdvertisments(preference, fittedAdvertismentsToSend)
+                await this.addNotificationsToDatabse(preference, fittedAdvertismentsToSend)
+            } 
+        }
     }
 }
