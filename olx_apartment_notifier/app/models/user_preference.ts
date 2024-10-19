@@ -69,6 +69,9 @@ export default class UserPreference extends BaseModel {
   @column()
   declare districtId: number | null
 
+  @column()
+  declare resendNotificationCooldownInDays: number
+
   @column.dateTime({ 
     autoCreate: true,
     serialize: (value) => value.toFormat('yyyy-LL-dd HH:mm:ss') 
