@@ -1,0 +1,116 @@
+@mjml()
+<mjml>
+    <mj-head>
+      <mj-title>Matching Advertisements</mj-title>
+      <mj-font name="Arial" href="https://fonts.googleapis.com/css?family=Arial" />
+      <mj-style>
+        .text-bold { font-weight: bold; }
+        .text-center { text-align: center; }
+        .btn-primary { background-color: #3498db; color: white; padding: 10px 20px; text-align: center; text-decoration: none; border-radius: 4px; display: inline-block; }
+        .table-header { background-color: #f4f4f4; padding: 10px 0; }
+        .app-color { color: #3498db; }
+        .header { background-color: #2d3e50; color: white; padding: 20px; text-align: center; font-family: Arial, sans-serif; font-size: 24px; }
+        .footer { background-color: #34495e; color: #bdc3c7; padding: 10px; text-align: center; font-family: Arial, sans-serif; font-size: 12px; }
+      </mj-style>
+
+      <mj-raw> <meta charset="utf-8"> </mj-raw>
+    </mj-head>
+  
+    <mj-body background-color="#f9f9f9">
+
+      <!-- Header -->
+      <mj-section background-color="#2d3e50" padding="20px">
+        <mj-column>
+          <mj-text font-size="24px" color="#ffffff" align="center" font-family="Arial" font-weight="bold">
+            Oferty mieszkań pasujące do twojej preferencji
+          </mj-text>
+        </mj-column>
+      </mj-section>
+
+
+      <!-- User Preferences -->
+      <mj-section background-color="#ffffff" padding="20px">
+        <mj-column>
+          <mj-text font-size="18px" color="#333333" font-family="Arial">
+            <span class="text-bold">Twoja preferencja:</span>
+          </mj-text>
+          <mj-text font-size="14px" color="#666666" font-family="Arial">
+            <p><span class="text-bold">Nazwa:</span> {{ userPreference.name }}</p>
+            <p><span class="text-bold">Lokalizacja:</span> {{ userPreference.location }}</p>
+            <p><span class="text-bold">Typ oferty:</span> {{ userPreference.categoryType }}</p>
+            <p><span class="text-bold">Cena:</span> {{ userPreference.price }}</p>
+            <p><span class="text-bold">Tytuł - słowa kluczowe:</span> {{ userPreference.titleKeywords }}</p>
+            <p><span class="text-bold">Opis - słowa kluczowe:</span> {{ userPreference.descriptionKeywords }}</p>
+            <p><span class="text-bold">Rodzaj zabudowy:</span> {{ userPreference.buildingTypes }}</p>
+            <p><span class="text-bold">Ilość pokoi:</span> {{ userPreference.rooms }}</p>
+            <p><span class="text-bold">Piętro:</span> {{ userPreference.floor }}</p>
+            <p><span class="text-bold">Powierzchnia (min - max):</span> {{ userPreference.square }}</p>
+            <p><span class="text-bold">Umeblowane:</span> {{ userPreference.furnished }}</p>
+            <p><span class="text-bold">Zwierzęta dozwolone:</span> {{ userPreference.petsAllowed }}</p>
+            <p><span class="text-bold">Winda:</span> {{ userPreference.lift }}</p>
+            <p><span class="text-bold">Parking:</span> {{ userPreference.carPark }}</p>
+            <p><span class="text-bold">Czynsz (min - max):</span> {{ userPreference.rent }}</p>
+            <p><span class="text-bold">Cena za m&sup2; (min - max):</span> {{ userPreference.priceForM2 }}</p>
+          </mj-text>
+        </mj-column>
+      </mj-section>
+
+
+      <!-- Advertisement Table -->
+      <mj-section background-color="#ffffff" padding="20px">
+        <mj-column>
+          <mj-text font-size="18px" color="#333333" font-family="Arial" align="center">
+            Oferty:
+          </mj-text>
+  
+          <mj-table cellpadding="10" cellspacing="0" border="1" width="100%">
+            <tr class="table-header">
+              <th class="text-bold" style="white-space: nowrap;">Tytuł</th>
+              <th class="text-bold" style="white-space: nowrap;">Lokalizacja</th>
+              <th class="text-bold" style="white-space: nowrap;">Typ oferty</th>
+              <th class="text-bold" style="white-space: nowrap;">Cena</th>
+              <th class="text-bold" style="white-space: nowrap;">Link</th>
+            </tr>
+  
+            @each(advert in advertisments)
+            <tr>
+              <td style="white-space: nowrap;"> {{ advert.title }} </td>
+              <td style="white-space: nowrap;">  {{ advert.location }} </td>
+              <td style="white-space: nowrap;"> {{ advert.categoryType }} </td>
+              <td style="white-space: nowrap;"> {{ advert.price }} </td>
+              <td style="white-space: nowrap;">
+                <a href="{{ advert.urlLink }}" class="btn-primary">View Offer</a>
+              </td>
+            </tr>
+            @endeach
+          </mj-table>
+        </mj-column>
+      </mj-section>
+
+
+        
+      <!-- ODPOWIEDNI LINK DO SZCZEGOLOW TEJ PREFERENCJI -->
+
+      <!-- Link do szczegółów preferencji -->
+      <mj-section background-color="#ffffff" padding="20px">
+        <mj-column>
+          <mj-text font-size="14px" color="#666666" font-family="Arial">
+            <a href="http://localhost:3333/home/update-preference/{{ userPreference.id }}" style="color: #3498db;">Zaktualizuj preferencję</a>
+          </mj-text>
+        </mj-column>
+      </mj-section>
+
+  
+      <!-- Footer -->
+      <mj-section background-color="#34495e" padding="10px">
+        <mj-column>
+          <mj-text font-size="12px" color="#bdc3c7" font-family="Arial" align="center">
+            Otrzymujesz tego emaila ponieważ masz włączoną opcję powiadamiania dla preferencji w aplikacji OLX Apartment Notifier. <br>
+            Zaloguj się na swoje konto i wyłącz opcję powiadamiania w <a href="http://localhost:3333/home/update-preference/{{ userPreference.id }}" style="color: #3498db;">szczegółach preferencji</a>.
+          </mj-text>
+        </mj-column>
+      </mj-section>
+
+    </mj-body>
+  </mjml>
+  @end  
