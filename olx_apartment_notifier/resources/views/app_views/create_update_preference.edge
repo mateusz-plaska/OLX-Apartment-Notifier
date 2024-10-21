@@ -31,28 +31,28 @@
             <!-- Name -->
             <div class="form-group">
                 <label for="name">Nazwa Preferencji</label>
-                <input type="text" id="name" name="name" class="nullable-field" value="{{ userPreference.name || '' }}">
+                <input type="text" id="name" name="name" class="nullable-field" value="{{ userPreference?.name || '' }}">
             </div>
 
 
             <!-- Title Keywords -->
             <div class="form-group">
                 <label for="title_keywords">Słowa kluczowe tytułu (oddziel przecinkami)</label>
-                <input type="text" id="title_keywords" name="title_keywords" class="nullable-field" value="{{ userPreference.titleKeywords || '' }}">
+                <input type="text" id="title_keywords" name="title_keywords" class="nullable-field" value="{{ userPreference?.titleKeywords || '' }}">
             </div>
     
 
             <!-- Description Keywords -->
             <div class="form-group">
                 <label for="description_keywords">Słowa kluczowe opisu (oddziel przecinkami)</label>
-                <input type="text" id="description_keywords" name="description_keywords" class="nullable-field" value="{{ userPreference.descriptionKeywords || '' }}">
+                <input type="text" id="description_keywords" name="description_keywords" class="nullable-field" value="{{ userPreference?.descriptionKeywords || '' }}">
             </div>
     
 
             <!-- Rooms -->
             <div class="form-group">
                 <label for="rooms">Ilość pokoi (oddziel przecinkami) <small> [ 1, 2, 3, 4 - oznacza 4 lub więcej ] </small> </label>
-                <input type="text" id="rooms" name="rooms" class="nullable-field" value="{{ userPreference.rooms || '' }}">
+                <input type="text" id="rooms" name="rooms" class="nullable-field" value="{{ userPreference?.rooms || '' }}">
             </div>
 
 
@@ -78,30 +78,30 @@
             <!-- Square (min, max) -->
             <div class="form-group">
                 <label for="square_min">Powierzchnia [m²] (min)</label>
-                <input type="number" step="0.01" id="square_min" name="square_min" value="{{ userPreference.square.split(';')[0] || '' }}">
+                <input type="number" step="0.01" id="square_min" name="square_min" value="{{ userPreference?.square.split(';')[0] || '' }}">
             </div>
             
             <div class="form-group">
                 <label for="square_max">Powierzchnia [m²] (max)</label>
-                <input type="number" step="0.01" id="square_max" name="square_max" value="{{ userPreference.square.split(';')[1] || '' }}">
+                <input type="number" step="0.01" id="square_max" name="square_max" value="{{ userPreference?.square.split(';')[1] || '' }}">
             </div>
       
 
             <!-- Price (min, max) -->
             <div class="form-group">
                 <label for="price_min">Cena [zł] (min)</label>
-                <input type="number" step="0.01" id="price_min" name="price_min" value="{{ userPreference.price.split(';')[0] || '' }}">
+                <input type="number" step="0.01" id="price_min" name="price_min" value="{{ userPreference?.price.split(';')[0] || '' }}">
             </div>
             <div class="form-group">
                 <label for="price_max">Cena [zł] (max)</label>
-                <input type="number" step="0.01" id="price_max" name="price_max" value="{{ userPreference.price.split(';')[1] || '' }}">
+                <input type="number" step="0.01" id="price_max" name="price_max" value="{{ userPreference?.price.split(';')[1] || '' }}">
             </div>
     
 
             <!-- Floor -->
             <div class="form-group">
                 <label for="floor">Piętro (oddziel przecinkami)</label>
-                <input type="text" id="floor" name="floor" class="nullable-field" value="{{ userPreference.floor || '' }}">
+                <input type="text" id="floor" name="floor" class="nullable-field" value="{{ userPreference?.floor || '' }}">
             </div>
     
 
@@ -136,22 +136,22 @@
             <!-- Rent Price (min, max) -->
             <div class="form-group">
                 <label for="rent_price_min">Czynsz [zł] (min)</label>
-                <input type="number" step="0.01" id="rent_price_min" name="rent_price_min" value="{{ userPreference.rentPrice.split(';')[0] || '' }}">
+                <input type="number" step="0.01" id="rent_price_min" name="rent_price_min" value="{{ userPreference?.rentPrice.split(';')[0] || '' }}">
             </div>
             <div class="form-group">
                 <label for="rent_price_max">Czynsz [zł] (max)</label>
-                <input type="number" step="0.01" id="rent_price_max" name="rent_price_max" value="{{ userPreference.rentPrice.split(';')[1] || '' }}">
+                <input type="number" step="0.01" id="rent_price_max" name="rent_price_max" value="{{ userPreference?.rentPrice.split(';')[1] || '' }}">
             </div>
     
 
             <!-- Price per m2 (min, max) -->
             <div class="form-group">
                 <label for="price_for_m2_min">Cena za m² [zł] (min)</label>
-                <input type="number" step="0.01" id="price_for_m2_min" name="price_for_m2_min" value="{{ userPreference.priceForM2.split(';')[0] || '' }}">
+                <input type="number" step="0.01" id="price_for_m2_min" name="price_for_m2_min" value="{{ userPreference?.priceForM2.split(';')[0] || '' }}">
             </div>
             <div class="form-group">
                 <label for="price_for_m2_max">Cena za m² [zł] (max)</label>
-                <input type="number" step="0.01" id="price_for_m2_max" name="price_for_m2_max" value="{{ userPreference.priceForM2.split(';')[1] || '' }}">
+                <input type="number" step="0.01" id="price_for_m2_max" name="price_for_m2_max" value="{{ userPreference?.priceForM2.split(';')[1] || '' }}">
             </div>
     
 
