@@ -185,7 +185,6 @@
                 </select>
             </div>
             
-            <!-- Dzielnice -->
             <div class="form-group">
                 <label for="district_id">Dzielnica</label>
                 <select id="district_id" name="district_id">
@@ -193,6 +192,16 @@
                 </select>
             </div>
 
+
+            <div class="form-cooldown">
+                <label for="cooldownValue">Za ile czasu od wysłania powiadomienia oferta może być ponownie wysłana:</label>
+                <input type="number" id="cooldownValue" name="resendNotificationCooldown[value]" min="1" />
+                <select name="resendNotificationCooldown[unit]" id="cooldownUnit">
+                    <option value="days">Dni</option>
+                    <option value="weeks">Tygodni</option>
+                    <option value="months">Miesięcy</option>
+                </select>
+            </div>
 
             
             <!-- Submit Button -->
@@ -307,10 +316,31 @@
                     });
             }
 
+
+            function setResendNotificationCooldownField(preferenceResendNotificationCooldownInDays) {
+                const resendNotificationCooldownValue = document.getElementById('cooldownValue')
+                const resendNotificationCooldownUnit = document.getElementById('cooldownUnit')
+
+                const unitMap = [{ unit: 'months', value: 30 }, { unit: 'weeks', value: 7 }, 
+                                                                    { unit: 'days', value: 1 }]
+                for(const {unit, value} of unitMap) {
+                    if(preferenceResendNotificationCooldownInDays % value === 0) {
+                        resendNotificationCooldownValue.value = preferenceResendNotificationCooldownInDays / value
+                        resendNotificationCooldownUnit.value = unit
+                        break
+                    }
+                }
+            }
+
             const userPreferenceId = {{ userPreference?.id || 'null' }}
+            const userPreferenceResendNotificationCooldown = {{ userPreference?.resendNotificationCooldownInDays || 'null' }}
 
             if (userPreferenceId) {
                 set(userPreferenceId)
+            }
+
+            if (userPreferenceResendNotificationCooldown) {
+                setResendNotificationCooldownField(userPreferenceResendNotificationCooldown)
             }
         });
 

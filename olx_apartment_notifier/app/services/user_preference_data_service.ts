@@ -11,6 +11,11 @@ export default class UserPreferenceDataService {
         }
         return result
     }
+
+    private getResendNotificationCooldownInDays(value: number, unit: string): number {
+        const unitMap = { 'days': 1, 'weeks': 7, 'months': 30 }
+        return value * unitMap[unit as keyof typeof unitMap]
+    }
     
     getUserPreferenceDataJson(data: Record<string, any>, 
                 integerValues: { rooms: string | undefined; floor: string | undefined; }  ): Partial<any> {
@@ -32,7 +37,9 @@ export default class UserPreferenceDataService {
             type: parseInt(data.type, 10), 
             regionId: data.region_id !== null ? parseInt(data.region_id, 10) : null,
             cityId: data.city_id !== null ? parseInt(data.city_id, 10) : null,
-            districtId: data.district_id !== null ? parseInt(data.district_id, 10) : null
+            districtId: data.district_id !== null ? parseInt(data.district_id, 10) : null,
+            resendNotificationCooldownInDays: this.getResendNotificationCooldownInDays(
+                        parseInt(data.resendNotificationCooldown.value), data.resendNotificationCooldown.unit)
         }
     }
 

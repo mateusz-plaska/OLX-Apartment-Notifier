@@ -184,3 +184,28 @@ body {
     color: red;
     margin-bottom: 20px;
 }
+
+
+.form-cooldown {
+    margin-bottom: 15px;
+}
+
+.form-cooldown label {
+    display: flex;
+    align-items: center; /* Wyśrodkowanie pionowe */
+    justify-content: space-between; /* Ustawienie odstępu między elementami */
+    font-weight: bold;
+    color: #bdc3c7;
+}
+
+.form-cooldown input,
+.form-cooldown select {
+    width: 40%; /* Oba elementy zajmą po około połowę szerokości */
+    padding: 10px;
+    margin-top: 5px;
+    border: none; /* Bez obramowania */
+    border-radius: 5px; /* Zaokrąglone rogi */
+    font-size: 16px; /* Rozmiar czcionki */
+    color: #2c3e50; /* Kolor tekstu w polach */
+    background-color: #fff; /* Białe tło dla pól */
+}
