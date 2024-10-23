@@ -16,11 +16,19 @@ export default class UserPreferenceDataService {
         const unitMap = { 'days': 1, 'weeks': 7, 'months': 30 }
         return value * unitMap[unit as keyof typeof unitMap]
     }
+
+    private isActive(isActiveString: string | undefined) {
+        if(!isActiveString) {
+            return false
+        }
+        return isActiveString == 'true' ? true : false
+    }
     
     getUserPreferenceDataJson(data: Record<string, any>, 
                 integerValues: { rooms: string | undefined; floor: string | undefined; }  ): Partial<any> {
         
         return {
+            isActive: this.isActive(data.isActive),
             name: data.name,
             titleKeywords:  data.title_keywords,
             descriptionKeywords: data.description_keywords,

@@ -209,3 +209,33 @@ body {
     color: #2c3e50; /* Kolor tekstu w polach */
     background-color: #fff; /* Białe tło dla pól */
 }
+
+
+.highlighted {
+    background-color: #3498db !important; /* Trochę ciemniejsze, ale jasne tło */
+    padding: 15px !important;
+    border-radius: 8px !important;
+    margin-bottom: 20px !important;
+    margin-top: 35px !important;
+}
+
+.highlight-label {
+    font-weight: bold !important;
+    font-size: 1.2em !important;
+    color: white !important; /* Pomarańczowy dla wyróżnienia */
+    margin-bottom: 8px !important;
+    display: block !important; /* Aby label zajmował całą szerokość nad selectem */
+}
+
+.highlight-select {
+    background-color: #f8f9fa !important; /* Jasnoszare tło */
+    color: #333 !important; /* Ciemniejszy tekst */
+    font-size: 1.1em !important;
+    padding: 10px !important;
+    border-radius: 6px !important;
+    transition: border-color 0.3s, background-color 0.3s !important;
+}
+
+.highlight-select:hover {
+    background-color: #e6e6e6 !important; /* Ciemniejsze tło po najechaniu */
+}

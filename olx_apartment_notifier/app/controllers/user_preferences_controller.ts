@@ -52,7 +52,6 @@ export default class UserPreferencesController {
 
         const userPreference = await UserPreference.create({
             userId: user.id,
-            isActive: false,
             ...userPreferenceDataService.getUserPreferenceDataJson(data, integerValues)
         })
         await userPreference.related('buildingTypes').attach(buildingTypeIds)

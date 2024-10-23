@@ -203,7 +203,17 @@
                 </select>
             </div>
 
-            
+
+            <div class="form-group highlighted">
+                @if(userPreference)
+                    <label for="isActive" class="highlight-label">Powiadamianie o pasujących ofertach</label>
+                    <select id="isActive", name="isActive" class="form-control highlight-select">
+                        <option value="true" {{ userPreference.isActive ? 'selected' : '' }}>Aktywne</option>
+                        <option value="false" {{ !(userPreference.isActive) ? 'selected' : '' }}>Nieaktywne</option>
+                    </select>
+                @endif
+            </div>
+
             <!-- Submit Button -->
             <div class="form-buttons">
                 <button type="submit" class="submit-btn">{{ userPreference ? 'Aktualizuj' : 'Utwórz' }} Preferencję</button>
