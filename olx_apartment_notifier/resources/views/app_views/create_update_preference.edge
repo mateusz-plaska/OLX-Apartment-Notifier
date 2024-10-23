@@ -204,15 +204,15 @@
             </div>
 
 
-            <div class="form-group highlighted">
-                @if(userPreference)
+            @if(userPreference)
+                <div class="form-group highlighted">
                     <label for="isActive" class="highlight-label">Powiadamianie o pasujących ofertach</label>
                     <select id="isActive", name="isActive" class="form-control highlight-select">
                         <option value="true" {{ userPreference.isActive ? 'selected' : '' }}>Aktywne</option>
                         <option value="false" {{ !(userPreference.isActive) ? 'selected' : '' }}>Nieaktywne</option>
                     </select>
-                @endif
-            </div>
+                </div>
+            @endif
 
             <!-- Submit Button -->
             <div class="form-buttons">
