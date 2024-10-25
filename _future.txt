@@ -1,0 +1,3 @@
+1. deploy
+2. change scheduler time to everyHours(12)
+3. change 2 links to app in email view
