@@ -3,9 +3,9 @@ import UserPreference from "#models/user_preference"
 import { Advertisment } from "./advertisments_handling_service.js"
 
 export default class AdvertismentPreferenceComparingService {
-    private includesKeywords(text: string, keywordsSeparatedByComma: string): boolean {
+    private includesAnyKeywords(text: string, keywordsSeparatedByComma: string): boolean {
         const normalizedText = text.toLowerCase()
-        return keywordsSeparatedByComma.toLowerCase().split(',').every(keyword => normalizedText.includes(keyword))
+        return keywordsSeparatedByComma.toLowerCase().split(',').some(keyword => normalizedText.includes(keyword))
     }
 
     private findParam(advertisment: Advertisment, key: string) {
@@ -21,16 +21,16 @@ export default class AdvertismentPreferenceComparingService {
         return advertValue ? advertValue === preferenceValue : false
     }
 
-    async isAdvertismentFitsUserPreference(advertisment: Advertisment, preference: UserPreference): Promise<boolean> {
+    async isAdvertismentFitsUserPreference(advertisment: Advertisment, preference: UserPreference): Promise<boolean> {        
         if(!advertisment.url) {
             return false
         }
 
-        if(!this.includesKeywords(advertisment.title || '', preference.titleKeywords)) {
+        if(!this.includesAnyKeywords(advertisment.title || '', preference.titleKeywords || '')) {
             return false
         }
 
-        if(!this.includesKeywords(advertisment.description || '', preference.descriptionKeywords)) {
+        if(!this.includesAnyKeywords(advertisment.description || '', preference.descriptionKeywords || '')) {
             return false
         }
 
@@ -82,27 +82,29 @@ export default class AdvertismentPreferenceComparingService {
             }
         }
 
-        const furnishedAdvParam = this.findParam(advertisment, 'furniture')
-        if(preference.furnished !== (furnishedAdvParam?.value.key === 'yes')) {
+        // boolean in db as 0/1, !! - converts to boolean
+        const isFurnishedAdv = this.findParam(advertisment, 'furniture')?.value.key === 'yes' || false
+        if(!!preference.furnished !== isFurnishedAdv) {
             return false
         }
 
-        const petsAdvParam = this.findParam(advertisment, 'pets')
-        if(preference.petsAllowed !== (petsAdvParam?.value.key === 'TAK')) {
+        const isPetsAllowedAdv = this.findParam(advertisment, 'pets')?.value.key === 'Tak' || false
+        if(!!preference.petsAllowed !== isPetsAllowedAdv) {
             return false
         }
-        
-        const liftAdvParam = this.findParam(advertisment, 'winda')
-        if(preference.lift !== (liftAdvParam?.value.key === 'TAK')) {
+            
+        const isLiftAdv = this.findParam(advertisment, 'winda')?.value.key === 'Tak' || false
+        if(!!preference.lift !== isLiftAdv) {
             return false
         }
-        
+
         const parkingAdvParam = this.findParam(advertisment, 'parking')
-        if(preference.carPark !== (parkingAdvParam?.value.label !== 'brak')) {
+        const isParkingAdv = parkingAdvParam?.value.label !== undefined && parkingAdvParam.value.label !== 'brak' 
+        if(!!preference.carPark !== isParkingAdv) {
             return false
         }
 
-
+    
         const builtTypeAdvParam = this.findParam(advertisment, 'builttype')
         if(!builtTypeAdvParam) {
             return false
