@@ -74,10 +74,10 @@
   
             @each(advert in advertisments)
             <tr>
-              <td style="white-space: nowrap;"> {{ advert.title }} </td>
-              <td style="white-space: nowrap;">  {{ advert.location }} </td>
-              <td style="white-space: nowrap;"> {{ advert.categoryType }} </td>
-              <td style="white-space: nowrap;"> {{ advert.price }} </td>
+              <td style="word-break: normal;"> {{ advert.title }} </td>
+              <td style="word-break: normal;">  {{ advert.location }} </td>
+              <td style="word-break: normal;"> {{ advert.categoryType }} </td>
+              <td style="word-break: normal;"> {{ advert.price }} </td>
               <td style="white-space: nowrap;">
                 <a href="{{ advert.urlLink }}" class="btn-primary">View Offer</a>
               </td>
