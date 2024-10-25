@@ -22,9 +22,9 @@ export default class EmailSendingService {
         return location.filter(Boolean).join(', ')
     }
 
-    private getCategoryTypeString(typeId: number | undefined) {
-        const typeMap = { 14: 'Sprzedaż', 15: 'Wynajem', 0: 'Sprzedaż i Wynajem' }
-        return typeId ? typeMap[typeId as keyof typeof typeMap] : ''
+    private getCategoryTypeString(typeId: number | undefined): string {
+        const typeMap = { 14: 'sprzedaż', 15: 'wynajem', 0: 'sprzedaż i wynajem' }
+        return typeId !== undefined ? typeMap[typeId as keyof typeof typeMap] : ''
     }
 
     private getSemicolnSeparatedValuesAsDecoratedString(stringValue: string, postFix: string) {
@@ -74,7 +74,7 @@ export default class EmailSendingService {
         await mail.send((message) => {
             message
                 .from('app.notifier.1@gmail.com', 'OLX Apartment Notifier')
-                .to('plaskamateuszi8@gmail.com') // email
+                .to(email)
                 .subject(`Oferty dla preferencji: ${userPreference.name}`)
                 .htmlView('emails/email_view', {userPreference, advertisments})
         })
