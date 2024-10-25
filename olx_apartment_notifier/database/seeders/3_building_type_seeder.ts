@@ -3,7 +3,7 @@ import { BaseSeeder } from '@adonisjs/lucid/seeders'
 
 export default class extends BaseSeeder {
   async run() {
-    // await this.seedBuildingTypesTable()
+    await this.seedBuildingTypesTable()
   }
 
   async seedBuildingTypesTable() {

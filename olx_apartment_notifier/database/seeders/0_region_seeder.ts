@@ -13,7 +13,7 @@ interface ApiResponse {
 
 export default class extends BaseSeeder {
   async run() {
-    //await this.fetchData()
+    await this.fetchData()
   }
 
   async fetchData() {

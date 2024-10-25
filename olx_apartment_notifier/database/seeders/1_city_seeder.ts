@@ -15,7 +15,7 @@ interface ApiResponse {
 
 export default class extends BaseSeeder {
   async run() {
-    //await this.fetchCityData()
+    await this.fetchCityData()
   }
 
   async fetchCityData() {
