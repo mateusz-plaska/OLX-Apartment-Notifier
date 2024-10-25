@@ -22,8 +22,7 @@ interface Location {
 }
 
 interface ApiResponse {
-    data: Advertisment[],
-    links: { next: { href: string } }
+    data: Advertisment[]
 }
 
 
@@ -50,41 +49,47 @@ export default class AdvertismentsHandlingService {
         }
     }
 
+    async fetchAdvertisments() {
+        const advertisments: Advertisment[] = []
+
+        for (let i = 0; ; i++) {
+            const urlLink = `https://www.olx.pl/api/v1/offers/?offset=${i}&category_id=1307`
+            
+            const response = await fetch(urlLink)
+            if(!response.ok) {
+                return advertisments
+            }
+
+            const jsonResponse = (await response.json()) as ApiResponse
+            advertisments.push(...jsonResponse.data)
+        }
+    }
+
     @inject()
     async handleAdvertisments(advertismentPreferenceComparingService: AdvertismentPreferenceComparingService, 
                                 emailSendingService: EmailSendingService) {
 
         await this.checkCooldownAndUpdateNotifications()
 
-        let i = 0
-        while(true) {
-            const urlLink = `https://www.olx.pl/api/v1/offers/?offset=${i}&category_id=1307`
-            i++
-
-            const response = await fetch(urlLink)
-            if(!response.ok) {
-                return
-            }
-
-            const jsonResponse = (await response.json()) as ApiResponse
-
-            const userPreferences = await UserPreference.findManyBy('isActive', true)
-
-            for(const preference of userPreferences) {
-                const fittedAdvertismentsToSend: Advertisment[] = []
-                for(const advertisment of jsonResponse.data) {
-                    const notification = await NotificationStory.query().where('advertisment_id', advertisment.id).where('user_preference_id', preference.id).first()
-                    
-                    if(!notification) {
-                        if(await advertismentPreferenceComparingService.isAdvertismentFitsUserPreference(advertisment, preference)) {
-                            fittedAdvertismentsToSend.push(advertisment)
-                        }
+        const advertisments: Advertisment[] = await this.fetchAdvertisments()
+        const userPreferences = await UserPreference.findManyBy('isActive', true)
+    
+        for(const preference of userPreferences) {
+            const fittedAdvertismentsToSend: Advertisment[] = []
+            for(const advertisment of advertisments) {
+                const notification = await NotificationStory.query().where('advertisment_id', advertisment.id).where('user_preference_id', preference.id).first()
+                
+                if(!notification) {
+                    if(await advertismentPreferenceComparingService.isAdvertismentFitsUserPreference(advertisment, preference)) {
+                        fittedAdvertismentsToSend.push(advertisment)
                     }
                 }
+            }
 
+            if(fittedAdvertismentsToSend.length) {
                 await emailSendingService.sendEmailWithPreferenceAndAdvertisments(preference, fittedAdvertismentsToSend)
                 await this.addNotificationsToDatabse(preference, fittedAdvertismentsToSend)
-            } 
-        }
+            }
+        } 
     }
 }
